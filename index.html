@@ -1079,6 +1079,90 @@
       section { padding: 3.5rem 1.25rem; }
       .stats-row { grid-template-columns: repeat(3, 1fr); }
     }
+
+    /* ─── TIMELINE EXPAND ─── */
+    .timeline-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+      background: none;
+      border: 1px solid var(--gray-200);
+      border-radius: 20px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+    }
+    .timeline-toggle:hover { background: var(--gold-pale); border-color: var(--gold); color: var(--gold); }
+    .timeline-toggle .ti { display: inline-block; transition: transform 0.3s; }
+    .timeline-item.expanded .ti { transform: rotate(180deg); }
+
+    .timeline-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.42s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+    .timeline-item.expanded .timeline-detail { max-height: 500px; opacity: 1; }
+
+    .exp-detail-card {
+      margin-top: 1rem;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-left: 3px solid var(--gold);
+      border-radius: 14px;
+      padding: 1.2rem 1.3rem;
+    }
+    .exp-detail-card.teal { border-left-color: var(--teal); }
+
+    .exp-logo-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.9rem; }
+    .exp-logo {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: var(--gray-100);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+    }
+    .exp-logo img { width: 100%; height: 100%; object-fit: contain; padding: 5px; border-radius: 10px; }
+    .exp-logo-name { font-weight: 700; font-size: 0.88rem; color: var(--navy); line-height: 1.2; }
+    .exp-logo-loc { font-size: 0.74rem; color: var(--gray-400); margin-top: 0.1rem; }
+
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.85rem; }
+    .exp-tag {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 0.22rem 0.6rem;
+      border-radius: 20px; background: var(--gray-100); color: var(--gray-600);
+    }
+    .exp-tag.gold { background: var(--gold-pale); color: #8a6b1f; }
+    .exp-tag.teal { background: var(--teal-pale); color: var(--teal); }
+
+    .exp-highlights { list-style: none; padding: 0; margin: 0; }
+    .exp-highlights li {
+      font-size: 0.82rem; color: var(--gray-600); line-height: 1.6;
+      padding: 0.3rem 0; border-bottom: 1px dashed var(--gray-200);
+      display: flex; gap: 0.5rem;
+    }
+    .exp-highlights li:last-child { border-bottom: none; }
+    .exp-highlights li::before { content: '→'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+
+    /* ─── FORM SUCCESS ─── */
+    .form-success {
+      display: none; text-align: center; padding: 1.5rem 1rem;
+      animation: fadeUp 0.5s ease both;
+    }
+    .form-success.show { display: block; }
+    .form-success-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .form-success h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--navy); margin-bottom: 0.4rem; }
+    .form-success p { font-size: 0.86rem; color: var(--gray-400); }
   </style>
 </head>
 <body>
@@ -1289,30 +1373,143 @@
             <div class="timeline-company">ELTA Transporte SRL</div>
             <div class="timeline-role">Internal Audit Controller</div>
             <div class="timeline-desc">Informes de gestión, seguimiento presupuestario y análisis financiero. Revisión de procesos y fortalecimiento del control interno.</div>
+            <button class="timeline-toggle" onclick="toggleExp(this)">Ver detalle <span class="ti">▾</span></button>
+            <div class="timeline-detail">
+              <div class="exp-detail-card">
+                <div class="exp-logo-row">
+                  <div class="exp-logo">🚌</div>
+                  <div>
+                    <div class="exp-logo-name">ELTA Transporte SRL</div>
+                    <div class="exp-logo-loc">📍 Córdoba, Argentina · Transporte</div>
+                  </div>
+                </div>
+                <div class="exp-tags">
+                  <span class="exp-tag gold">Auditoría</span>
+                  <span class="exp-tag teal">Control Interno</span>
+                  <span class="exp-tag">Finanzas</span>
+                </div>
+                <ul class="exp-highlights">
+                  <li>Elaboración de informes de gestión para la dirección</li>
+                  <li>Seguimiento presupuestario mensual y análisis de desvíos</li>
+                  <li>Revisión y fortalecimiento del sistema de control interno</li>
+                  <li>Análisis financiero y reportes ejecutivos</li>
+                </ul>
+              </div>
+            </div>
           </div>
           <div class="timeline-item">
             <div class="timeline-period">2020 — Actualidad</div>
             <div class="timeline-company">Consultora Independiente</div>
             <div class="timeline-role">Diagnóstico Organizacional</div>
             <div class="timeline-desc">Diagnóstico y optimización de estructuras y procesos. Acompañamiento a equipos directivos en planificación estratégica.</div>
+            <button class="timeline-toggle" onclick="toggleExp(this)">Ver detalle <span class="ti">▾</span></button>
+            <div class="timeline-detail">
+              <div class="exp-detail-card teal">
+                <div class="exp-logo-row">
+                  <div class="exp-logo">🧩</div>
+                  <div>
+                    <div class="exp-logo-name">Consultoría Independiente</div>
+                    <div class="exp-logo-loc">📍 AR · CO · UY · US · Consultoría</div>
+                  </div>
+                </div>
+                <div class="exp-tags">
+                  <span class="exp-tag gold">Estrategia</span>
+                  <span class="exp-tag teal">Procesos</span>
+                  <span class="exp-tag">4 países</span>
+                </div>
+                <ul class="exp-highlights">
+                  <li>Diagnóstico organizacional en Argentina, Colombia, Uruguay y EE.UU.</li>
+                  <li>Diseño e implementación de KPIs y tableros de gestión</li>
+                  <li>Acompañamiento a equipos directivos en planificación estratégica</li>
+                  <li>Optimización de circuitos administrativos y estructuras internas</li>
+                </ul>
+              </div>
+            </div>
           </div>
           <div class="timeline-item">
             <div class="timeline-period">2022 — 2025</div>
             <div class="timeline-company">Darwoft</div>
             <div class="timeline-role">Internal Audit Controller</div>
             <div class="timeline-desc">Auditorías internas e implementación de ISO 9001:2015. Formalización de políticas y profesionalización de RRHH.</div>
+            <button class="timeline-toggle" onclick="toggleExp(this)">Ver detalle <span class="ti">▾</span></button>
+            <div class="timeline-detail">
+              <div class="exp-detail-card">
+                <div class="exp-logo-row">
+                  <div class="exp-logo"><img src="https://logo.clearbit.com/darwoft.com" alt="Darwoft" onerror="this.parentElement.textContent='💻'" /></div>
+                  <div>
+                    <div class="exp-logo-name">Darwoft</div>
+                    <div class="exp-logo-loc">📍 Córdoba, Argentina · Tecnología</div>
+                  </div>
+                </div>
+                <div class="exp-tags">
+                  <span class="exp-tag gold">ISO 9001:2015</span>
+                  <span class="exp-tag teal">RRHH</span>
+                  <span class="exp-tag">Tech</span>
+                </div>
+                <ul class="exp-highlights">
+                  <li>Implementación y certificación ISO 9001:2015</li>
+                  <li>Diseño y documentación de políticas y procedimientos internos</li>
+                  <li>Profesionalización del área de Recursos Humanos</li>
+                  <li>Auditorías internas periódicas y seguimiento de no conformidades</li>
+                </ul>
+              </div>
+            </div>
           </div>
           <div class="timeline-item">
             <div class="timeline-period">2017 — 2022</div>
             <div class="timeline-company">Estudio Bustos & Asociados</div>
             <div class="timeline-role">Contador Senior</div>
             <div class="timeline-desc">Asesoramiento contable e impositivo. Balances comerciales y constitución de sociedades.</div>
+            <button class="timeline-toggle" onclick="toggleExp(this)">Ver detalle <span class="ti">▾</span></button>
+            <div class="timeline-detail">
+              <div class="exp-detail-card teal">
+                <div class="exp-logo-row">
+                  <div class="exp-logo">📊</div>
+                  <div>
+                    <div class="exp-logo-name">Estudio Bustos & Asociados</div>
+                    <div class="exp-logo-loc">📍 Córdoba, Argentina · Contabilidad</div>
+                  </div>
+                </div>
+                <div class="exp-tags">
+                  <span class="exp-tag gold">Impuestos</span>
+                  <span class="exp-tag teal">Balances</span>
+                  <span class="exp-tag">Sociedades</span>
+                </div>
+                <ul class="exp-highlights">
+                  <li>Liquidación de impuestos nacionales y provinciales</li>
+                  <li>Elaboración de balances comerciales y estados contables</li>
+                  <li>Constitución de sociedades y asesoramiento jurídico-contable</li>
+                  <li>Atención y asesoramiento directo a clientes</li>
+                </ul>
+              </div>
+            </div>
           </div>
           <div class="timeline-item">
             <div class="timeline-period">2015</div>
             <div class="timeline-company">Estudio Bagur & Asociados</div>
             <div class="timeline-role">Auxiliar Contable</div>
             <div class="timeline-desc">Soporte administrativo-contable y liquidación de impuestos.</div>
+            <button class="timeline-toggle" onclick="toggleExp(this)">Ver detalle <span class="ti">▾</span></button>
+            <div class="timeline-detail">
+              <div class="exp-detail-card">
+                <div class="exp-logo-row">
+                  <div class="exp-logo">📋</div>
+                  <div>
+                    <div class="exp-logo-name">Estudio Bagur & Asociados</div>
+                    <div class="exp-logo-loc">📍 Córdoba, Argentina · Contabilidad</div>
+                  </div>
+                </div>
+                <div class="exp-tags">
+                  <span class="exp-tag">Inicio de carrera</span>
+                  <span class="exp-tag gold">Contabilidad</span>
+                </div>
+                <ul class="exp-highlights">
+                  <li>Soporte administrativo-contable general</li>
+                  <li>Liquidación de impuestos y cargas sociales</li>
+                  <li>Registro y conciliación de movimientos contables</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1453,33 +1650,39 @@
               <div class="contact-icon">📍</div>
               <div>
                 <div class="contact-label">Ubicación</div>
-                <span class="contact-value">Córdoba, Argentina</span>
+                <a href="https://maps.google.com/?q=Córdoba,+Argentina" target="_blank" rel="noopener" class="contact-value">Córdoba, Argentina</a>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="contact-form reveal">
+        <form class="contact-form reveal" id="contact-form" action="https://formspree.io/f/mvzlbpvz" method="POST">
+          <input type="hidden" name="_subject" value="Consulta desde Portfolio · Carla Damario" />
           <div class="form-title">Enviarme un mensaje</div>
-          <p style="font-size:0.85rem;color:var(--gray-400);margin-bottom:0.5rem">Respondó en menos de 24 horas</p>
+          <p style="font-size:0.85rem;color:var(--gray-400);margin-bottom:0.5rem">Respondo en menos de 24 horas</p>
           <div class="form-group">
             <label for="nombre">Nombre completo</label>
-            <input type="text" id="nombre" placeholder="Tu nombre" />
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" placeholder="tu@email.com" />
+            <input type="email" id="email" name="email" placeholder="tu@email.com" required />
           </div>
           <div class="form-group">
             <label for="empresa">Empresa / Organización</label>
-            <input type="text" id="empresa" placeholder="Nombre de tu empresa" />
+            <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa" />
           </div>
           <div class="form-group">
             <label for="mensaje">Mensaje</label>
-            <textarea id="mensaje" placeholder="Contame en qué puedo ayudarte..."></textarea>
+            <textarea id="mensaje" name="mensaje" placeholder="Contame en qué puedo ayudarte..." required></textarea>
           </div>
-          <button class="btn-submit" onclick="handleSubmit()">Enviar mensaje →</button>
-        </div>
+          <button type="submit" class="btn-submit" id="submit-btn">Enviar mensaje →</button>
+          <div class="form-success" id="form-success">
+            <div class="form-success-icon">✅</div>
+            <h3>¡Mensaje enviado!</h3>
+            <p>Te responderé en menos de 24 horas.</p>
+          </div>
+        </form>
       </div>
     </div>
   </section>
@@ -1514,17 +1717,30 @@
       });
     }, { passive: true });
 
-    // Contact form
-    function handleSubmit() {
-      const nombre = document.getElementById('nombre').value;
-      const email = document.getElementById('email').value;
-      const empresa = document.getElementById('empresa').value;
-      const mensaje = document.getElementById('mensaje').value;
-      if (!nombre || !email || !mensaje) {
-        alert('Por favor completá nombre, email y mensaje.');
-        return;
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+      const res = await fetch('https://formspree.io/f/mvzlbpvz', {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('form-success').classList.add('show');
+        btn.style.display = 'none';
+        this.reset();
+      } else {
+        btn.textContent = 'Error al enviar. Intentá de nuevo →';
+        btn.disabled = false;
       }
-      window.location.href = `mailto:carladamario.cd@gmail.com?subject=Consulta de ${encodeURIComponent(nombre)}${empresa ? ' — ' + encodeURIComponent(empresa) : ''}&body=${encodeURIComponent(mensaje)}%0A%0ARemitente: ${encodeURIComponent(email)}`;
+    });
+
+    function toggleExp(btn) {
+      const item = btn.closest('.timeline-item');
+      item.classList.toggle('expanded');
+      btn.querySelector('.ti').textContent = item.classList.contains('expanded') ? '▴' : '▾';
     }
   </script>
 </body>
